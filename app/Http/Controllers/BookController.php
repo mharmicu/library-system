@@ -81,6 +81,7 @@ class BookController extends Controller
                     'illustrator' => 'required|max:255',
                     'totalPages' => 'required|numeric|min:1|max:99999',
                     'quantity' => 'required|numeric|min:1|max:9999',
+                    'file' => ['nullable', 'mimes:jpg,bmp,jpeg,png', 'max:15000']
                     // niremove ko validation sa image hahaha pag nilagyan ko ayaw masaveeeeeee
                 ], [
                     // custom error message here if ever meron
@@ -98,12 +99,16 @@ class BookController extends Controller
                 $book->illustrator = $request->illustrator;
                 $book->totalPages = $request->totalPages;
                 $book->quantity = $request->quantity;
-                //saving image
-                $image = $request->file('file');
-                $imageName = time() . '.' . $image->extension();
-                $image->move(public_path('images'), $imageName);
 
-                $book->image = $imageName;
+                if ($request->hasFile('file')) {
+                    //saving image
+                    $image = $request->file('file');
+                    $imageName = time() . '.' . $image->extension();
+                    $image->move(public_path('images'), $imageName);
+
+                    $book->image = $imageName;
+                }
+
                 $book->save();
                 // $book->books()->save($book);
                 return back()->with('success', '');
@@ -131,6 +136,7 @@ class BookController extends Controller
                     'illustrator' => 'required|max:255',
                     'totalPages' => 'required|numeric|min:1|max:99999',
                     'quantity' => 'required|numeric|min:1|max:9999',
+                    'file' => ['nullable', 'mimes:jpg,bmp,jpeg,png', 'max:15000']
                     // niremove ko validation sa image hahaha pag nilagyan ko ayaw masaveeeeeee
                 ], [
                     // custom error message here if ever meron
@@ -146,12 +152,16 @@ class BookController extends Controller
                 $book->illustrator = $request->illustrator;
                 $book->totalPages = $request->totalPages;
                 $book->quantity = $request->quantity;
-                //saving image
-                $image = $request->file('file');
-                $imageName = time() . '.' . $image->extension();
-                $image->move(public_path('images'), $imageName);
 
-                $book->image = $imageName;
+                //saving image
+                if ($request->hasFile('file')) {
+                    $image = $request->file('file');
+                    $imageName = time() . '.' . $image->extension();
+                    $image->move(public_path('images'), $imageName);
+
+                    $book->image = $imageName;
+                }
+
                 $book->save();
                 return back()->with('updated', '');
             } else {
@@ -195,8 +205,7 @@ class BookController extends Controller
 
     public function download(Request $request, $file)
     {
-        return response()->download(public_path('assets/'.$file));
-
+        return response()->download(public_path('assets/' . $file));
     }
 
     public function destroy($id)
