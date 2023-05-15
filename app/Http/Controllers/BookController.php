@@ -81,7 +81,7 @@ class BookController extends Controller
                     'illustrator' => 'required|max:255',
                     'totalPages' => 'required|numeric|min:1|max:99999',
                     'quantity' => 'required|numeric|min:1|max:9999',
-                    'file' => ['nullable', 'mimes:jpg,bmp,jpeg,png', 'max:15000']
+                    //'file' => ['nullable', 'mimes:jpg,bmp,jpeg,png', 'max:15000']
                     // niremove ko validation sa image hahaha pag nilagyan ko ayaw masaveeeeeee
                 ], [
                     // custom error message here if ever meron
@@ -107,6 +107,8 @@ class BookController extends Controller
                     $image->move(public_path('images'), $imageName);
 
                     $book->image = $imageName;
+                }else{
+                    $book->image = 'bookplaceholder.png';
                 }
 
                 $book->save();
@@ -136,7 +138,7 @@ class BookController extends Controller
                     'illustrator' => 'required|max:255',
                     'totalPages' => 'required|numeric|min:1|max:99999',
                     'quantity' => 'required|numeric|min:1|max:9999',
-                    'file' => ['nullable', 'mimes:jpg,bmp,jpeg,png', 'max:15000']
+                    //'file' => ['nullable', 'mimes:jpg,bmp,jpeg,png', 'max:15000']
                     // niremove ko validation sa image hahaha pag nilagyan ko ayaw masaveeeeeee
                 ], [
                     // custom error message here if ever meron
