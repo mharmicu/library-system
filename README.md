@@ -1,4 +1,4 @@
-# Online Library System
+# Bibliotech - Virtual Library - an Online Library System
 The Online Library System is a web application that provides a platform for librarians and students to manage and browse books in a library. It offers various features to facilitate book management, borrowing, and user administration.
 
 ## Members
