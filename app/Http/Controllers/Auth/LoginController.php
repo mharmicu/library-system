@@ -58,7 +58,8 @@ class LoginController extends Controller
 
             auth()->user()->generateCode();
 
-            return redirect()->route('2fa.index');
+            //return redirect()->route('2fa.index');
+            return redirect()->route('dashboard');
         }
 
         return redirect("login")->with('status','Opps! You have entered invalid credentials');

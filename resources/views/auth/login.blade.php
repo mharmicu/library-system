@@ -13,6 +13,14 @@
         </div>
         @endif
 
+        @if(session()->has('error'))
+
+            <div class="alert alert-danger col-sm-12 text-red-600">
+                {{session()->get('error')}}
+            </div>
+
+            @endif
+
         <form method="POST" action="{{ route('login') }}">
             @csrf
 

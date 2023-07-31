@@ -37,7 +37,7 @@
                             <th scope="col">Year Level</th>
                             <th scope="col">Penalty</th>
                             <th scope="col">Usertype</th>
-                            <th scope="col" colspan="2" style="text-align: center; width:20%;">Actions</th>
+                            <th scope="col" colspan="3" style="text-align: center; width:20%;">Actions</th>
                         </tr>
                     </thead>
 
@@ -62,7 +62,13 @@
                             @endif
 
                             <td><a class="btn btn-block btn-primary" data-bs-toggle="modal" data-bs-target="#viewModal{{$user->id}}">View</a></td>
-                            <td><a class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal{{$user->id}}">Update Student</a></td>
+                            <td><a class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal{{$user->id}}">Update</a></td>
+                            
+                            @if($user->status == 1)
+                            <td><a class="btn btn-danger" href="{{ route('updateStatus', ['user_id' => $user->id, 'status_code' => 0]) }}">Disable</a></td>
+                            @else
+                            <td><a class="btn btn-success" href="{{ route('updateStatus', ['user_id' => $user->id, 'status_code' => 1]) }}">Enable</a></td>
+                            @endif
                         </tr>
 
                         <!-- Modal -->

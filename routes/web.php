@@ -6,7 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Livewire\BorrowedBookLivewire;
 use App\Http\Livewire\ManageUsers;
 use App\Http\Controllers\Auth\ForgotPasswordController;
-
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,14 +35,14 @@ Route::middleware([
     })->name('dashboard');
 });
 */
-Route::get('/dashboard', [BookController::class, 'dashboard'])->name('dashboard')->middleware('2fa');
-Route::get('/stocks', [BookController::class, 'stocks'])->name('stocks')->middleware('2fa');
-Route::get('/due-dates', [BookController::class, 'due_dates'])->name('due_dates')->middleware('2fa');
-Route::get('/about-us', [BookController::class, 'about'])->name('about')->middleware('2fa');
-Route::get('/borrowed-dates', [BookController::class, 'borrowed_chart'])->name('borrowed_chart')->middleware('2fa');
-Route::get('/borrowed-status', [BookController::class, 'borrowed_status'])->name('borrowed_status')->middleware('2fa');
-Route::get('/students-penalty', [BookController::class, 'students_penalty'])->name('students_penalty')->middleware('2fa');
-Route::get('/book-monthly', [BookController::class, 'book_monthly'])->name('book_monthly')->middleware('2fa');
+Route::get('/dashboard', [BookController::class, 'dashboard'])->name('dashboard');
+Route::get('/stocks', [BookController::class, 'stocks'])->name('stocks');
+Route::get('/due-dates', [BookController::class, 'due_dates'])->name('due_dates');
+Route::get('/about-us', [BookController::class, 'about'])->name('about');
+Route::get('/borrowed-dates', [BookController::class, 'borrowed_chart'])->name('borrowed_chart');
+Route::get('/borrowed-status', [BookController::class, 'borrowed_status'])->name('borrowed_status');
+Route::get('/students-penalty', [BookController::class, 'students_penalty'])->name('students_penalty');
+Route::get('/book-monthly', [BookController::class, 'book_monthly'])->name('book_monthly');
 
 Route::get('2fa', [App\Http\Controllers\TwoFAController::class, 'index'])->name('2fa.index');
 Route::post('2fa', [App\Http\Controllers\TwoFAController::class, 'store'])->name('2fa.post');
@@ -91,3 +91,5 @@ Route::get('forget-password', [ForgotPasswordController::class, 'showForgetPassw
 Route::post('forget-password', [ForgotPasswordController::class, 'submitForgetPasswordForm'])->name('forget.password.post'); 
 Route::get('reset-password/{token}', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
 Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
+
+Route::get('disable-user/{user_id}/{status_code}', [ManageUsers::class, 'updateStatus'])->name('updateStatus');
